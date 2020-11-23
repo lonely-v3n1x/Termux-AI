@@ -18,7 +18,7 @@ logging.basicConfig(
 logging.info("Running TermApi...")
 
 
-class deviceApi(object):
+class BaseApi(object):
     def __self__():
         self.sp = subprocess
 
@@ -32,34 +32,31 @@ class deviceApi(object):
     def runcmd(self, cmd: list):
         return sp.run(cmd, stdout=sp.PIPE, stderr=sp.PIPE)
 
-    def Data(self):
+    def deviceInfo(self):
         try:
-            getData = self.runcmd(["termux-telephony-deviceinfo"])
-            res = json.loads(getData.stdout)
-            # print(res["data_state"])
-
-            if res["data_state"] == "connected":
-                return True
-            else:
-                return False
+            return json.loads(self.runcmd(["termux-telephony-deviceinfo"]).stdout)
         except:
             self.log("Error accessing termux-telephony-deviceinfo")
 
-    def getHeadsetInfo(self):
+    def audioInfo(self):
         try:
-            headsetapi = self.runcmd(["termux-audio-info"])
-            res = json.loads(headsetapi.stdout)
-            # For debugging
-            # print(res["WIREDHEADSET_IS_CONNECTED"])
+            return json.loads(self.runcmd(["termux-audio-info"]).stdout)
+        except:
+            self.log("Error acessing termux-audio-info")
 
-            return res["WIREDHEADSET_IS_CONNECTED"]
-        except FileNotFoundError:
-            self.log("Errorf accessing termux-audio-info")
+    def Toast(self, text, bg="black", cl="white", pos="top"):
+        doc = """ 
+        bg for background color ,cl for text color, pos for postion [top, middle, or bottom]
+        """
+        try:
+            sp.run([f"termux-toast -b{bg} -c{cl} -g{pos} {text}"], shell=True)
+        except:
+            self.log("Error acessing termux-toast")
 
 
 if __name__ == "__main__":
     test = deviceApi()
-    if test.Data():
+    if test.getData():
         print("Dgood")
-    if test.getHeadsetInfo():
+    if not test.getHeadsetInfo():
         print("good")
