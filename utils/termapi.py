@@ -6,6 +6,7 @@ import base
 
 class Api:
     def __init__(self):
+        """ wanted to use inheritance but since i am from C lang i dont see any importance"""
         self.base = base.BaseApi()
 
     def getDataConnection(self):
@@ -23,6 +24,11 @@ class Api:
         # print(res["WIREDHEADSET_IS_CONNECTED"])
         return res["WIREDHEADSET_IS_CONNECTED"]
 
+    def getBatteryPercent(self):
+        res = self.base.batteryStatus()
+        # print(res["percentage"])
+        return res["percentage"]
+
     def Toast(self, text="Enter Something"):
         return self.base.Toast(text)
 
@@ -33,4 +39,5 @@ if __name__ == "__main__":
         print("Dgood")
     if test.getHeadsetInfo():
         print("good")"""
-    test.Toast()
+    # test.Toast()
+    test.getBatteryPercent()

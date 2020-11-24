@@ -44,8 +44,14 @@ class BaseApi(object):
         except:
             self.log("Error acessing termux-audio-info")
 
+    def batteryStatus(self):
+        try:
+            return json.loads(self.runcmd(["termux-battery-status"]).stdout)
+        except:
+            self.log("Error with termux-battery-status")
+
     def Toast(self, text, bg="black", cl="white", pos="top"):
-        doc = """ 
+        doc = """
         bg for background color ,cl for text color, pos for postion [top, middle, or bottom]
         """
         try:
