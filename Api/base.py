@@ -3,18 +3,27 @@ import subprocess as sp
 from json import loads
 import logging
 from rich.console import Console
-
+from rich.logging import RichHandler
 # Rich module Console init
 console = Console()
 
 # Saving errors and log to a fiel
-logging.basicConfig(
+'''logging.basicConfig(
     filename="termApi.log",
     filemode="a",
     format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
     datefmt="%H:%M:%S",
     level=logging.DEBUG,
+)'''
+
+logging.basicConfig(
+    level="NOTSET",
+    format="%(message)s",
+    datefmt="[%X]",
+    handlers=[RichHandler(rich_tracebacks=True)]
 )
+
+
 logging.info("Running TermApi...")
 
 
@@ -32,6 +41,7 @@ class BaseApi(object):
     def runcmd(self, cmd: list):
         try:
             return sp.run(cmd, stdout=sp.PIPE, stderr=sp.PIPE)
+            #self.log(f"Success {cmd}")
         except:
             self.log(f"Error accessing {cmd}")
 
@@ -45,6 +55,9 @@ class BaseApi(object):
     def batteryStatus(self):
         return loads(self.runcmd(
             ["termux-battery-status"]).stdout)
+
+    def callLog(self):
+        return loads(self.runcmd(["termux-call-log"]).stdout)
 
     def Toast(self, text, bg="black", cl="white", pos="top"):
         doc = """
