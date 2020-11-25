@@ -35,7 +35,6 @@ class Api:
 
 if __name__ == "__main__":
     test = Api()
-    """
     if test.getDataConnection():
         print("Dgood")
     else:
@@ -45,4 +44,4 @@ if __name__ == "__main__":
     else:
         print("no headset connected")
     test.Toast()
-    print(test.getBatteryPercent())"""
+    print(test.getBatteryPercent())

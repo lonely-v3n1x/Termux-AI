@@ -30,38 +30,35 @@ class BaseApi(object):
 
     # Method to run cmds
     def runcmd(self, cmd: list):
-        return sp.run(cmd, stdout=sp.PIPE, stderr=sp.PIPE)
+        try:
+            return sp.run(cmd, stdout=sp.PIPE, stderr=sp.PIPE)
+        except:
+            self.log(f"Error accessing {cmd}")
 
     def deviceInfo(self):
-        try:
-            return loads(self.runcmd(["termux-telephony-deviceinfo"]).stdout)
-        except:
-            self.log("Error accessing termux-telephony-deviceinfo")
+        return loads(self.runcmd(
+            ["termux-telephony-deviceinfo"]).stdout)
 
     def audioInfo(self):
-        try:
-            return loads(self.runcmd(["termux-audio-info"]).stdout)
-        except:
-            self.log("Error acessing termux-audio-info")
+        return loads(self.runcmd(["termux-audio-info"]).stdout)
 
     def batteryStatus(self):
-        try:
-            return loads(self.runcmd(["termux-battery-status"]).stdout)
-        except:
-            self.log("Error with termux-battery-status")
+        return loads(self.runcmd(
+            ["termux-battery-status"]).stdout)
 
     def Toast(self, text, bg="black", cl="white", pos="top"):
         doc = """
         bg for background color ,cl for text color, pos for postion [top, middle, or bottom]
         """
         try:
-            sp.run([f"termux-toast -b{bg} -c{cl} -g{pos} {text}"], shell=True)
+            sp.run(
+                [f"termux-toast -b{bg} -c{cl} -g{pos} {text}"], shell=True)
         except:
             self.log("Error acessing termux-toast")
 
 
 if __name__ == "__main__":
-    test = deviceApi()
+    test = BaseApi()
     if test.getData():
         print("Dgood")
     if not test.getHeadsetInfo():
