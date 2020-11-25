@@ -1,6 +1,6 @@
 import rich
 import subprocess as sp
-form json import loads
+from json import loads
 import logging
 from rich.console import Console
 

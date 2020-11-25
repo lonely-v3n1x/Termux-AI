@@ -38,9 +38,11 @@ if __name__ == "__main__":
     """
     if test.getDataConnection():
         print("Dgood")
-    else: print('No connection's)
+    else:
+        print("No connection")
     if test.getHeadsetInfo():
         print("good")
-    else: print('no headset connected')
+    else:
+        print("no headset connected")
     test.Toast()
     print(test.getBatteryPercent())"""
