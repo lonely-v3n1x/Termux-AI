@@ -8,20 +8,20 @@ from rich.logging import RichHandler
 console = Console()
 
 # Saving errors and log to a fiel
-'''logging.basicConfig(
+logging.basicConfig(
     filename="termApi.log",
     filemode="a",
     format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
     datefmt="%H:%M:%S",
     level=logging.DEBUG,
-)'''
+)
 
-logging.basicConfig(
+''''logging.basicConfig(
     level="NOTSET",
     format="%(message)s",
     datefmt="[%X]",
     handlers=[RichHandler(rich_tracebacks=True)]
-)
+)'''
 
 
 logging.info("Running TermApi...")
@@ -58,6 +58,10 @@ class BaseApi(object):
 
     def callLog(self):
         return loads(self.runcmd(["termux-call-log"]).stdout)
+
+    def contactList(self):
+        return loads(self.runcmd(['termux-contact-list']).stdout)
+
 
     def Toast(self, text, bg="black", cl="white", pos="top"):
         doc = """

@@ -1,5 +1,5 @@
 import base
-from logprint import displayCallLogTerm 
+from logprint import displayCallLogTable,displayContactTable
 
 # api=base.devicApi()
 
@@ -36,10 +36,13 @@ class Api:
        #return self.base.callLog()
 
     #Print call log in the terminal from logprint
-    #takes raw json as arg
-    def termCallLog(self):
+    def disCallLog(self):
         data=self.base.callLog()
-        displayCallLogTerm(data)
+        displayCallLogTable(data)
+
+    #display contact list in table form
+    def disContactList(self):
+        displayContactTable(self.base.contactList())
 
     def Toast(self, text="Enter Something"):
         return self.base.Toast(text)
@@ -47,7 +50,7 @@ class Api:
 
 if __name__ == "__main__":
     test = Api()
-    '''
+    
     if test.getDataConnection():
         print("Dgood")
     else:
@@ -57,6 +60,7 @@ if __name__ == "__main__":
     else:
         print("no headset connected")
     test.Toast()
-    test.writcallLog() '''
-    print(test.getBatteryPercent())
-    test.termCallLog()
+    test.writeCallLog()
+    #print(test.getBatteryPercent())
+    test.disCallLog()
+    test.disContactList()
