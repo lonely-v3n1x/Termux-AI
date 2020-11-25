@@ -1,6 +1,6 @@
 import rich
 import subprocess as sp
-import json
+form json import loads
 import logging
 from rich.console import Console
 
@@ -34,19 +34,19 @@ class BaseApi(object):
 
     def deviceInfo(self):
         try:
-            return json.loads(self.runcmd(["termux-telephony-deviceinfo"]).stdout)
+            return loads(self.runcmd(["termux-telephony-deviceinfo"]).stdout)
         except:
             self.log("Error accessing termux-telephony-deviceinfo")
 
     def audioInfo(self):
         try:
-            return json.loads(self.runcmd(["termux-audio-info"]).stdout)
+            return loads(self.runcmd(["termux-audio-info"]).stdout)
         except:
             self.log("Error acessing termux-audio-info")
 
     def batteryStatus(self):
         try:
-            return json.loads(self.runcmd(["termux-battery-status"]).stdout)
+            return loads(self.runcmd(["termux-battery-status"]).stdout)
         except:
             self.log("Error with termux-battery-status")
 
