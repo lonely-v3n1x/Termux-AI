@@ -29,30 +29,39 @@ class Api(BaseApi):
         # print(res["percentage"])
         return res["percentage"]
 
+    def setBrightness(self,num):
+        self.brightness(num)
+
+    def setVolume(self,stream,num,get=False):
+        self.volume(stream,num,get)
+
+    #write's call log to a file call.log
     def writeCallLog(self):
         from json import dump
 
         with open("call.log", "w") as tmp:
             dump(self.callLog(), tmp)
-
-    # return self.base.callLog()
+            # return self.base.callLog()
 
     # Print call log in the terminal from logprint
     def disCallLog(self):
         data = self.callLog()
         displayCallLogTable(data)
 
+    #overider url_open
+    def web_open(self,url):
+        self.url_open(url)
     # display contact list in table form
     def disContactList(self):
         displayContactTable(self.contactList())
 
-    def toast(self, text="Enter Something"):
-        return self.Toast(text)
+    def Toast(self, text="Enter Something"):
+        return self.toast(text)
 
 
 if __name__ == "__main__":
-    '''
     test = Api()
+    '''
     if test.getDataConnection():
         print("Dgood")
     else:
@@ -66,4 +75,5 @@ if __name__ == "__main__":
     print(test.getBatteryPercent())
     test.disCallLog()
     test.disContactList()
-    '''
+    test.web_open('https://google.com')
+    test.setBrightness(15)'''

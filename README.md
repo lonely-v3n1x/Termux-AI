@@ -7,5 +7,7 @@ Telegram:@v3n1x
 
 or just make a pull request
 
+it's recommended to set a single browser as always for smoothness
+
 Note:This program is at a very early stage
 Thanks.
