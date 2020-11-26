@@ -76,4 +76,6 @@ if __name__ == "__main__":
     test.disCallLog()
     test.disContactList()
     test.web_open('https://google.com')
-    test.setBrightness(15)'''
+    test.setBrightness(15)
+    '''
+    test.setVolume('music',15)
