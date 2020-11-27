@@ -66,14 +66,9 @@ class BaseApi(object):
         return False
 
     #Use arg get=True to return json of volume data
-    def volume(self,stream,vol :int,get):
-        if get==True:
-            return loads(self.runcmd(['termux-volume']).stdout)
-        elif(stream in ('alarm', 'music', 'notification', 'ring', 'system', 'call')):
-            sp.run(['termux-volume','stream',str(vol)])
-            return True
-        #return false if stream is invalid or args are noy valid
-        return False
+    def volume(self,stream,vol :int):
+        sp.run(['termux-volume',stream,str(vol)])
+
 
     def callLog(self):
         return loads(
