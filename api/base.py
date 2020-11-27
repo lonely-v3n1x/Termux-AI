@@ -1,6 +1,6 @@
 import rich
 import subprocess as sp
-from json import loads
+from ujson import loads
 import logging
 from rich.console import Console
 import validators

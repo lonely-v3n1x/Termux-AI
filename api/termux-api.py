@@ -1,6 +1,6 @@
 from base import BaseApi
 from termprint import displayCallLogTable, displayContactTable
-from json import dump,loads
+from ujson import dump,loads
 # api=base.devicApi()
 
 
@@ -78,5 +78,5 @@ if __name__ == "__main__":
     test.disContactList()
     test.web_open('https://google.com')
     test.setBrightness(15)
-    test.setVolume('music','5')
-    print(test.getVolume())'''
+    test.setVolume('music','5')'''
+    print(test.getVolume())
