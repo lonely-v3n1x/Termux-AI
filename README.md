@@ -7,12 +7,7 @@ Telegram:@v3n1x
 
 or just make a pull request
 
-<<<<<<< HEAD
 it's recommended to set a single browser as always for smoothness
 
-Note:This program is at a very early stage
-=======
-Note:#.Use the api folder instead of Api.
-     #.This program is at a very early stage
->>>>>>> 1409d094f37d1b62e22b86cb1bc69d3b271e599d
+#This program is at a very early stage
 Thanks.
