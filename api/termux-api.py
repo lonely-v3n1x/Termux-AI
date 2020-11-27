@@ -1,6 +1,6 @@
 from base import BaseApi
 from termprint import displayCallLogTable, displayContactTable
-
+from json import dump,loads
 # api=base.devicApi()
 
 
@@ -32,13 +32,14 @@ class Api(BaseApi):
     def setBrightness(self,num):
         self.brightness(num)
 
-    def setVolume(self,stream,num,get=False):
-        self.volume(stream,num,get)
+    def getVolume(self):
+        return loads(self.runcmd(['termux-volume']).stdout)
+
+    def setVolume(self,stream,num):
+        self.volume(stream,num)
 
     #write's call log to a file call.log
     def writeCallLog(self):
-        from json import dump
-
         with open("call.log", "w") as tmp:
             dump(self.callLog(), tmp)
             # return self.base.callLog()
@@ -77,5 +78,5 @@ if __name__ == "__main__":
     test.disContactList()
     test.web_open('https://google.com')
     test.setBrightness(15)
-    '''
-    test.setVolume('music',15)
+    test.setVolume('music','5')
+    print(test.getVolume())'''
