@@ -5,8 +5,11 @@ import validators
 try:
     from func import parse,uri_validator
 except :
+    '''
     print('load not found')
     quit()
+    '''
+    from ujson import load,loads
 
 
 # Rich module Console init
@@ -46,6 +49,15 @@ class BaseApi(object):
         if stream in streams:
             sp.run(['termux-volume',stream,str(vol)])
         return False
+
+    def clipboard(self,get=False,st=False,inp=''):
+        if get and not set:
+            return loads(
+                self.runcmd(["termux-clipboard-get"]).stdout
+            )
+        else:
+            self.runcmd([f"termux-clipboard-set {inp}"])
+
 
     def callLog(self):
         return loads(
