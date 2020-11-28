@@ -30,7 +30,12 @@ class Api(BaseApi):
         return res["percentage"]
 
     def getClipboard(self):
-        return self.clipboard(get=True,set=False)
+        #it return's a bytes string
+        return self.clipboard(get=True,st=False)
+
+    def setClipboard(self,usr):
+        #sets usr to clipboard
+        self.clipboard(get=False,st=True,inp=usr)
 
     def setBrightness(self,num):
         self.brightness(num)
@@ -81,6 +86,7 @@ if __name__ == "__main__":
     test.disContactList()
     test.web_open('https://google.com')
     test.setBrightness(15)
-    test.setVolume('music','5')'''
-    print(test.getVolume())
-    print(test,getClipboard())
+    test.setVolume('music','5')
+    print(test.getVolume())'''
+    test.setClipboard('Usr\nIts Works')
+    print(test.getClipboard().decode())

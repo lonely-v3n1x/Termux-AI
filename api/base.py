@@ -44,19 +44,17 @@ class BaseApi(object):
 
     #Use arg get=True to return json of volume data
     def volume(self,stream,vol :int):
-        streams=('alarm', 'music', 
+        streams=('alarm', 'music',
                  'notification', 'ring', 'system', 'call')
         if stream in streams:
             sp.run(['termux-volume',stream,str(vol)])
         return False
 
     def clipboard(self,get=False,st=False,inp=''):
-        if get and not set:
-            return loads(
-                self.runcmd(["termux-clipboard-get"]).stdout
-            )
+        if get and not st:
+            return self.runcmd(["termux-clipboard-get"]).stdout
         else:
-            self.runcmd([f"termux-clipboard-set {inp}"])
+            self.runcmd(["termux-clipboard-set",f"{inp}"])
 
 
     def callLog(self):
