@@ -1,53 +1,27 @@
 import rich
 import subprocess as sp
-from ujson import loads
-import logging
 from rich.console import Console
 import validators
-#from rich.logging import RichHandler
+try:
+    from func import parse,uri_validator
+except :
+    print('load not found')
+    quit()
 
 
 # Rich module Console init
 console = Console()
 
-# Saving errors and log to a fiel
-logging.basicConfig(
-    filename="termApi.log",
-    filemode="a",
-    format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
-    datefmt="%H:%M:%S",
-    level=logging.DEBUG,
-)
-
-"""'logging.basicConfig(
-    level="NOTSET",
-    format="%(message)s",
-    datefmt="[%X]",
-    handlers=[RichHandler(rich_tracebacks=True)]
-)"""
-
-
-logging.info("Running TermApi...")
-
-
 class BaseApi(object):
     def __self__():
         self.sp = subprocess
-
-    # log errors
-    def log(self, msg):
-        log = logging.getLogger("TermApi")
-        log.error(msg)
-        console.print(msg, style="bold red")
 
     # Method to run cmds
     def runcmd(self, cmd: list):
         try:
             return sp.run(cmd, stdout=sp.PIPE, stderr=sp.PIPE)
-            # self.log(f"Success {cmd}")
         except:
-            self.log(f"Error accessing {cmd}")
-
+            print(f"Error with {cmd}")
     def deviceInfo(self):
         return loads(
             self.runcmd(["termux-telephony-deviceinfo"]).stdout)
@@ -67,8 +41,11 @@ class BaseApi(object):
 
     #Use arg get=True to return json of volume data
     def volume(self,stream,vol :int):
-        sp.run(['termux-volume',stream,str(vol)])
-
+        streams=('alarm', 'music', 
+                 'notification', 'ring', 'system', 'call')
+        if stream in streams:
+            sp.run(['termux-volume',stream,str(vol)])
+        return False
 
     def callLog(self):
         return loads(
