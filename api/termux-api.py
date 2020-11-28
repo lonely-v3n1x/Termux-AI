@@ -6,8 +6,8 @@ from ujson import dump,loads
 
 class Api(BaseApi):
     def __init__(self):
-        """ wanted to use inheritance but since i am from C lang i dont see any importance"""
         # self.base = base.BaseApi()
+        pass
 
     def getDataConnection(self):
         # print(res["data_state"])
@@ -28,6 +28,9 @@ class Api(BaseApi):
         res = self.batteryStatus()
         # print(res["percentage"])
         return res["percentage"]
+
+    def getClipboard(self):
+        return self.clipboard(get=True,set=False)
 
     def setBrightness(self,num):
         self.brightness(num)
@@ -80,3 +83,4 @@ if __name__ == "__main__":
     test.setBrightness(15)
     test.setVolume('music','5')'''
     print(test.getVolume())
+    print(test,getClipboard())
