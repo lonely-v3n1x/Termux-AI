@@ -33,9 +33,9 @@ class BaseApi():
 
     #Return info about the battery
     def BatteryStatus(self):
-        return self.termapi(BatteryStatus)
+        return self.termapi('BatteryStatus')
 
 
 if __name__ == "__main__":
     test=BaseApi()
-    print(test.AudioInfo().stdout)
+    print(test.BatteryStatus().stdout)
