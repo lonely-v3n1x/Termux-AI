@@ -22,9 +22,12 @@ class BaseApi():
             print(f'Error with {typ}{arg}')
 
     #Returns info about device
-    def deviceInfo(self):
+    def DeviceInfo(self):
         return self.termapi('TelephonyDeviceInfo')
+
+    def AudioInfo(self):
+        return self.termapi('AudioInfo')
 
 if __name__ == "__main__":
     test=BaseApi()
-    print(test.deviceInfo().stdout)
+    print(test.AudioInfo().stdout)
