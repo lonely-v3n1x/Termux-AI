@@ -1,15 +1,16 @@
 import subprocess as sp
+from subprocess import run,Popen
 
 
 class BaseApi():
     def __init__(self):
         self.api=\
             '/data/data/com.termux/files/usr/libexec/termux-api'
-        self.sp=sp
+        #self.sp=sp
 
     def runcmd(self,cmd):
         try:
-            return sp.run(
+            return run(
                 [cmd],stdout=sp.PIPE, stderr=sp.PIPE)
         except:
             print(f'Error with {cmd}')
@@ -17,7 +18,7 @@ class BaseApi():
 
     def termapi(self,typ,arg='',arg2=''):
         try:
-            return sp.run(
+            return run(
                 [self.api,typ,arg,arg2],stdout=sp.PIPE, stderr=sp.PIPE)
         except:
             return None
@@ -39,11 +40,11 @@ class BaseApi():
     #Set the screen brightness between 0 and 255 or auto
     def Brightness(self,lvl='',auto=False):
         if auto:
-            return self.sp.run(
+            return run( 
                 f'{self.api} Brightness --ez auto true ',
                 shell=True)
         else:
-            return self.sp.run(
+            return run(
                 f'{self.api} Brightness --ei brightness {lvl} --ez auto false',shell=True
             )
 
