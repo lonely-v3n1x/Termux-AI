@@ -5,6 +5,7 @@ class BaseApi():
     def __init__(self):
         self.api=\
             '/data/data/com.termux/files/usr/libexec/termux-api'
+        self.sp=sp
 
     def runcmd(self,cmd):
         try:
@@ -14,10 +15,10 @@ class BaseApi():
             print(f'Error with {cmd}')
             return None
 
-    def termapi(self,typ,arg=''):
+    def termapi(self,typ,arg='',arg2=''):
         try:
             return sp.run(
-                [self.api,typ,arg],stdout=sp.PIPE, stderr=sp.PIPE)
+                [self.api,typ,arg,arg2],stdout=sp.PIPE, stderr=sp.PIPE)
         except:
             return None
             print(f'Error with {typ}{arg}')
@@ -35,7 +36,18 @@ class BaseApi():
     def BatteryStatus(self):
         return self.termapi('BatteryStatus')
 
+    #Set the screen brightness between 0 and 255 or auto
+    def Brightness(self,lvl='',auto=False):
+        if auto:
+            return self.sp.run(
+                f'{self.api} Brightness --ez auto true ',
+                shell=True)
+        else:
+            return self.sp.run(
+                f'{self.api} Brightness --ei brightness {lvl} --ez auto false',shell=True
+            )
+
 
 if __name__ == "__main__":
     test=BaseApi()
-    print(test.BatteryStatus().stdout)
+    print(test.Brightness(lvl=15).returncode)
