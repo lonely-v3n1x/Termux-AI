@@ -47,8 +47,9 @@ class BaseApi():
             return run(
                 f'{self.api} Brightness --ei brightness {lvl} --ez auto false',shell=True
             )
-
+    def CallLog(self):
+        return self.termapi('CallLog')
 
 if __name__ == "__main__":
     test=BaseApi()
-    print(test.Brightness(lvl=15).returncode)
+    print(test.CallLog().stdout)
