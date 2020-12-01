@@ -50,6 +50,17 @@ class BaseApi():
     def CallLog(self):
         return self.termapi('CallLog')
 
+    def Clipboard(self,get=True,st=False,inp=''):
+        if get:
+            return self.termapi('Clipboard')
+        else:
+            run(f'echo {inp} | {self.api} Clipboard -e api_version 2 --ez set true',
+                shell=True)
+
+    def ContactList(self):
+        pass
+
 if __name__ == "__main__":
     test=BaseApi()
-    print(test.CallLog().stdout)
+    test.Clipboard(get=False,inp='Maaas')
+    print(test.Clipboard().stdout)
