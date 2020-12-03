@@ -59,11 +59,10 @@ class BaseApi():
             run(cmdC,shell=True)
 
     def ContactList(self):
-       #use shlex
-       pass
+        return self.termapi('ContactList')
 
 if __name__ == "__main__":
     test=BaseApi()
-    test.Clipboard(get=False,inp='Fuck this shit')
-    print(test.Clipboard().stdout)
-    #print(test.api)
+    #test.Clipboard(get=False,inp='Fuck this shit')
+    #print(test.Clipboard().stdout)
+    print(test.ContactList().stdout)
