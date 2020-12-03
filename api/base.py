@@ -61,8 +61,13 @@ class BaseApi():
     def ContactList(self):
         return self.termapi('ContactList')
 
+    def Fingerprint(self,title='FingerPrint',desc='Authenticate Fingerprint',subs=''):
+        cmdFP=f'{self.api} Fingerprint --es title {title} --es description {desc} --es subtitle {subs}'
+        return run(cmdFP,shell=True)
+
 if __name__ == "__main__":
     test=BaseApi()
     #test.Clipboard(get=False,inp='Fuck this shit')
     #print(test.Clipboard().stdout)
-    print(test.ContactList().stdout)
+    #print(test.ContactList().stdout)
+    #print(test.Fingerprint().stdout)
