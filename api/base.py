@@ -1,11 +1,12 @@
 import subprocess as sp
+import shlex as shl
 from subprocess import run,Popen
+import os
 
 
 class BaseApi():
     def __init__(self):
-        self.api=\
-            '/data/data/com.termux/files/usr/libexec/termux-api'
+        self.api=f'{os.getcwd()}/bin/termapi'
         #self.sp=sp
 
     def runcmd(self,cmd):
@@ -44,9 +45,9 @@ class BaseApi():
                 f'{self.api} Brightness --ez auto true ',
                 shell=True)
         else:
-            return run(
-                f'{self.api} Brightness --ei brightness {lvl} --ez auto false',shell=True
-            )
+            cmd=f'{self.api} Brightness --ei brightness {lvl} --ez     auto false'
+            return run(shl.split(cmd))
+
     def CallLog(self):
         return self.termapi('CallLog')
 
@@ -54,13 +55,15 @@ class BaseApi():
         if get:
             return self.termapi('Clipboard')
         else:
-            run(f'echo {inp} | {self.api} Clipboard -e api_version 2 --ez set true',
-                shell=True)
+            cmdC=f"echo -n {inp} |{self.api} Clipboard -e api_version 2 --ez set true"
+            run(cmdC,shell=True)
 
     def ContactList(self):
-        pass
+       #use shlex
+       pass
 
 if __name__ == "__main__":
     test=BaseApi()
-    test.Clipboard(get=False,inp='Maaas')
+    test.Clipboard(get=False,inp='Fuck this shit')
     print(test.Clipboard().stdout)
+    #print(test.api)
