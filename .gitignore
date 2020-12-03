@@ -1,5 +1,17 @@
+# Ignore all
+*
+
+# Unignore all files with extensions recursively
+!**/*.*
+
+# Unignore Makefiles recursively
+!**/Makefile
+
+#Not api
+!api/
+# other .gitignore rules...
 utils/teqrmApi.log
 *.log
 */*/__pycache__/
 *__pycache__/
-
+api/bin
