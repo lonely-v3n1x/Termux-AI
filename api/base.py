@@ -9,16 +9,16 @@ class BaseApi:
         self.api = f"{os.getcwd()}/bin/termapi"
         # self.sp=sp
 
-    def runcmd(self, cmd):
+    '''def runcmd(self, cmd):
         try:
             return run([cmd], stdout=sp.PIPE, stderr=sp.PIPE)
         except:
             print(f"Error with {cmd}")
-            return None
+            return None'''
 
-    def termapi(self, typ, arg="", arg2=""):
+    def termapi(self, typ):
         try:
-            return run([self.api, typ, arg, arg2], stdout=sp.PIPE, stderr=sp.PIPE)
+            return run([self.api, typ], stdout=sp.PIPE, stderr=sp.PIPE)
         except:
             return None
             print(f"Error with {typ}{arg}")
@@ -51,8 +51,10 @@ class BaseApi:
         if get:
             return self.termapi("Clipboard")
         else:
-            cmdC = f"echo -n {inp} |{self.api} Clipboard -e api_version 2 --ez set true"
-            run(cmdC, shell=True)
+            #cmdC = f"echo -n {inp} |"
+            cmdC=f"{self.api} Clipboard -e api_version 2 --ez set true"
+            # Return bytes
+            run(cmdC, shell=True,input=inp.encode())
 
     def ContactList(self):
         return self.termapi("ContactList")
@@ -73,11 +75,17 @@ class BaseApi:
 
         return None
 
+    def SmsSend(self,*numbers :list,text):
+        for i in list(numbers):
+            cmd_send=f'{self.api} SmsSend --esa recipients {i}'
+            return run(cmd_send,shell=True,input=text.encode())
 
 if __name__ == "__main__":
     test = BaseApi()
     # test.Clipboard(get=False,inp='Fuck this shit')
-    # print(test.Clipboard().stdout)
+    # print(test.Clipboard())
     # print(test.ContactList().stdout)
     # print(test.Fingerprint().stdout)
     # print(test.SmsList(typ='sent').stdout)
+    print(test.SmsSend(592,text='No'))
+
