@@ -9,13 +9,6 @@ class BaseApi:
         self.api = f"{os.getcwd()}/bin/termapi"
         # self.sp=sp
 
-    '''def runcmd(self, cmd):
-        try:
-            return run([cmd], stdout=sp.PIPE, stderr=sp.PIPE)
-        except:
-            print(f"Error with {cmd}")
-            return None'''
-
     def termapi(self, typ):
         try:
             return run([self.api, typ], stdout=sp.PIPE, stderr=sp.PIPE)
@@ -70,8 +63,8 @@ class BaseApi:
         if typ in typs:
             date = "--ez show-dates true"
             nums = "--ez show-phone-numbers true"
-            cmdS = f"{self.api} SmsInbox {date} {nums} --ei offset 0 --ei limit {limit} --ei type {typs.index(typ)} "
-            return run(cmdS, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+            cmd_list = f"{self.api} SmsInbox {date} {nums} --ei offset 0 --ei limit {limit} --ei type {typs.index(typ)} "
+            return run(cmd_list, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
 
         return None
 
@@ -80,6 +73,25 @@ class BaseApi:
             cmd_send=f'{self.api} SmsSend --esa recipients {i}'
             return run(cmd_send,shell=True,input=text.encode())
 
+    def Toast(self,text,color='white',bgcolor='gray',pos='middle'):
+       positions=('top', 'middle', 'bottom')
+       if pos in positions:
+            cmd_Toast=f'{self.api} Toast --ez short true --es text_color "{color}" --es background "{bgcolor}" --es gravity {pos}'
+            return run(cmd_Toast,shell=True,input=text.encode(),stdout=sp.PIPE, stderr=sp.PIPE)
+       else:
+           return None
+
+    def Volume(self,size='7',stream='music',st=False):
+        streams=('alarm', 'music', 'notificatio', 'ring', 'system', 'call')
+        if stream in streams and st==True:
+            cmd_vol=f'{self.api} Volume -a set-volume --es stream {stream} --ei volume {size}'
+            return run(cmd_vol,shell=True,stdout=sp.PIPE, stderr=sp.PIPE)
+        elif st==False:
+            cmd_vol=f'{self.api} Volume '
+            return run(cmd_vol,shell=True,stdout=sp.PIPE, stderr=sp.PIPE)
+        else:
+            return None
+
 if __name__ == "__main__":
     test = BaseApi()
     # test.Clipboard(get=False,inp='Fuck this shit')
@@ -87,5 +99,8 @@ if __name__ == "__main__":
     # print(test.ContactList().stdout)
     # print(test.Fingerprint().stdout)
     # print(test.SmsList(typ='sent').stdout)
-    print(test.SmsSend(592,text='No'))
+    # print(test.SmsSend(592,text='No'))
+    #test.Volume('14','music',st=True)
+    #print(test.Volume(st=False))
+    print(test.Toast(text='hi',color='#FF0000',bgcolor='#2f706b').returncode)
 
