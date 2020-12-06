@@ -21,4 +21,13 @@ deviceInfo():
   "sim_state": ""
 
 
+Toast
 
+Usage: termux-toast [-b bgcolor] [-c color] [-g gravity] [-s] [text]
+Show text in a Toast (a transient popup). The text to show is either supplied as arguments or read from stdin if no arguments are given.
+ -h  show this help
+ -b  set background color (default: gray)
+ -c  set text color (default: white)
+ -g  set position of toast: [top, middle, or bottom] (default: middle)
+ -s  only show the toast for a short while
+NOTE: color can be a standard name (i.e. red) or 6 / 8 digit hex value (i.e. "#FF0000" or "#FFFF0000") where order is (AA)RRGGBB. Invalid color will revert to default value
