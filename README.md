@@ -2,8 +2,7 @@
 
 This project is at its early stage. I will be working on it mostly.
 
-If you want to contribute. Just DM Me on
-Telegram:@v3n1x 
+If you want to contribute. Just make a Pull request 
 
 or just make a pull request
 
